@@ -1,0 +1,106 @@
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Download, Mail, MapPin, Phone } from "lucide-react";
+import SapDocumentWindow from "@/components/sap/SapDocumentWindow";
+
+const projects = [
+  { no: "01", title: "SAP ↔ Unicommerce", text: "Connected SAP ERP workflows with a third-party commerce platform through integration, data mapping, and process coordination.", tags: ["SAP", "Integration", "Data mapping"] },
+  { no: "02", title: "SAP + BEAS Manufacturing", text: "Supported manufacturing operations with BEAS production flows, inventory visibility, and reliable issue and receipt transactions.", tags: ["SAP B1", "BEAS", "Manufacturing"] },
+  { no: "03", title: "WMS / FEFO / Picklist", text: "Improved warehouse-facing processes with clearer item movement, picking logic, and operational reporting.", tags: ["WMS", "FEFO", "Picklist"] },
+  { no: "04", title: "SAP Web / Mobile Portal", text: "Built SAP-integrated portals and mobile workflows that made Sales, Purchase, Inventory, and Expense operations easier to access.", tags: ["Portals", "Mobile", "Workflow"] },
+  { no: "05", title: "SQL / HANA Reporting", text: "Created stored procedures, validation logic, and reports that helped teams reach reliable operational insight faster.", tags: ["SQL", "HANA", "Reporting"] },
+  { no: "06", title: "E-Invoicing / Automation", text: "Implemented process automation and e-invoicing solutions to reduce manual work and accelerate Accounts Receivable processing.", tags: ["Automation", "E-invoicing", "AR"] },
+  { no: "07", title: "SAP ↔ Telegram Automation with n8n", text: "Personal project exploring automated SAP-to-Telegram integration with n8n for notifications, workflow triggers, and faster operational communication.", tags: ["n8n", "SAP", "Telegram"] },
+];
+
+const whatIDo = ["Business Analysis", "SAP / ERP", "Integration", "Data & SQL", "Automation", "Solution Delivery"];
+const businessAnalysis = ["Requirements", "Process Mapping", "Gap Analysis", "Functional Documentation", "UAT", "Defect Management"];
+const technical = ["SAP", "SAP Business One", "SQL", "SAP HANA", "REST APIs", "BEAS", "n8n", "Automation", "Data Mapping"];
+const experience = [
+  { year: "2024 — Present", title: "Business Analyst Team Lead", company: "FieldNXT Pvt. Ltd", detail: "Leading SAP-integrated portals, workflow automation, BEAS manufacturing, SQL/HANA solutions, and third-party integrations.", skills: ["Team leadership", "SAP integrations", "BEAS", "Automation"] },
+  { year: "2023 — 2024", title: "SAP Business One Functional Consultant", company: "Indus Novature Softech Pvt. Ltd", detail: "Supported SAP B1 implementations, production reporting, process documentation, and user adoption.", skills: ["SAP B1", "Functional consulting", "UAT", "Documentation"] },
+  { year: "2020 — 2022", title: "Financial Analyst", company: "CA Asha Zachariah & Co", detail: "Delivered reporting and analysis for 10+ clients, improved data validation, and supported audit and compliance work.", skills: ["Financial analysis", "Reporting", "Data validation", "Audit support"] },
+  { year: "2015 — 2016", title: "Accountant / Audit Executive", company: "CA Alex Kuriakose & Co", detail: "Built a strong foundation in accounting operations, audit support, reconciliations, and financial controls.", skills: ["Accounting", "Reconciliation", "Financial controls", "Audit"] },
+];
+
+const stats = [
+  { label: "Years of Experience", value: "10+", code: "EXP" },
+  { label: "Projects Delivered", value: "24", code: "PRJ" },
+  { label: "SAP Modules", value: "06", code: "MOD" },
+  { label: "Certifications", value: "04", code: "CERT" },
+];
+
+function Field({ label, value }: { label: string; value: string }) {
+  return <div className="sap-field"><span>{label}</span><strong>{value}</strong></div>;
+}
+
+export default function Home() {
+  const [heroPulse, setHeroPulse] = useState(0);
+  const [liveClock, setLiveClock] = useState("00:00:00");
+  const [commsSent, setCommsSent] = useState(false);
+
+  useEffect(() => {
+    const updateClock = () => setLiveClock(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date()));
+    updateClock();
+    const timer = window.setInterval(updateClock, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="consulting-portfolio">
+      <main id="top" className="sap-document-stack">
+        <SapDocumentWindow title="Business & ERP Solutions" code={`01 / LIVE · ${liveClock}`} className="sap-hero-window">
+          <div className="sap-hero-layout">
+            <div className="sap-hero-copy">
+              <div className="sap-form-caption">STATUS: AVAILABLE · ROLE: ERP / SAP CONSULTANT</div>
+              <h1>Business &amp; ERP<br /><em key={heroPulse}>Solutions.</em></h1>
+              <p>Integration, automation, and practical systems that help teams work with more clarity and less manual effort.</p>
+              <div className="sap-inline-meta"><span><MapPin size={14} /> Trivandrum, Kerala</span><span><Mail size={14} /> namadmohammed0@gmail.com</span></div>
+              <div className="sap-data-strip"><span>STATUS: AVAILABLE</span><span>ROLE: ERP / SAP CONSULTANT</span><span>BUILDING SYSTEMS · CONNECTING TEAMS · REDUCING FRICTION · </span></div>
+              <div className="sap-action-row"><a className="sap-primary-button" href="#work" onClick={() => setHeroPulse((value) => value + 1)}>View Projects <ArrowUpRight size={14} /></a><button className="sap-secondary-button" type="button" onClick={() => window.print()}><Download size={14} /> Download CV</button></div>
+            </div>
+            <div className="sap-hero-badge"><div className="sap-badge-ring"><span>NM</span></div><small>CONSULTING OS / 001</small></div>
+          </div>
+          <div className="sap-form-footer"><span>ACTIVE WORKSTREAM</span><strong>Business need <em>→</em> system solution</strong><small>Requirements · Mapping · Delivery</small></div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="About Me" code="BP-0001 · VERIFIED" className="sap-about-window" >
+          <div className="sap-section-intro"><div><span className="sap-form-caption">System profile readout</span><h2>Connecting business<br /><em>needs with systems.</em></h2></div><div className="sap-identity-mark"><strong>NM</strong><span>IDENTITY / 001</span></div></div>
+          <p className="sap-window-copy">Business Analyst with experience in ERP integration, process improvement, automation, reporting, and user support.</p>
+          <div className="sap-field-grid"><Field label="NAME" value="Namad Mohammed" /><Field label="ROLE" value="Business Analyst / ERP Consultant" /><Field label="LOCATION" value="Trivandrum, Kerala / Remote" /><Field label="EXPERTISE" value="SAP ERP · SQL/HANA · Integration" /><Field label="EXPERIENCE" value="10+ years across finance, ERP, and delivery" /></div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="Projects · Sales Order Register" code="SO-PORTFOLIO" className="sap-projects-window" >
+          <div className="sap-window-heading"><div><span className="sap-form-caption">Selected projects</span><h2>Relevant work,<br /><em>clearly presented.</em></h2></div><p>Selected experience across ERP, manufacturing, portals, reporting, integration, automation, and a personal n8n project.</p></div>
+          <div id="work" className="sap-sales-orders">{projects.map((project) => <article className="sap-sales-order" key={project.no}><div className="sap-order-top"><strong>PROJECT {project.no}</strong><span>{project.no === "07" ? "PERSONAL PROJECT" : "SELECTED EXPERIENCE"}</span></div><div className="sap-field-grid sap-order-fields"><Field label="PROJECT" value={project.title} /><Field label="MODULE" value={project.tags.join(" · ")} /><Field label="ROLE" value="ERP / SAP Consultant" /><Field label="CLIENT" value={project.no === "07" ? "Personal project" : "Selected experience"} /><Field label="STATUS" value="Selected" /><Field label="OUTCOME" value={project.text} /></div><a className="sap-row-link" href="#contact">Discuss this capability <ArrowUpRight size={13} /></a></article>)}</div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="Business Analysis · Matrix" code="BA-REGISTER" className="sap-analysis-window" >
+          <div className="sap-window-heading"><div><span className="sap-form-caption">Business analysis</span><h2>From questions<br /><em>to action.</em></h2></div></div>
+          <div className="sap-table-wrap"><table className="sap-table"><thead><tr><th>No.</th><th>Process / Method</th><th>Delivery Area</th></tr></thead><tbody>{businessAnalysis.map((item, index) => <tr key={item}><td>{String(index + 1).padStart(2, "0")}</td><td>{item}</td><td>Business Analysis</td></tr>)}</tbody></table></div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="Skills · Capability Matrix" code="SK-REGISTER" className="sap-skills-window" >
+          <div className="sap-window-heading"><div><span className="sap-form-caption">Skills matrix</span><h2>Working toolkit,<br /><em>mapped.</em></h2></div><p>Technical, ERP, integration, and automation capabilities used across delivery.</p></div>
+          <div className="sap-table-wrap"><table className="sap-table sap-skills-table"><thead><tr><th>Category</th><th>Capability / Tool</th><th>Area</th></tr></thead><tbody>{technical.map((item, index) => <tr key={item}><td>{index < 2 ? "SAP / ERP" : index < 5 ? "Data & Integration" : "Automation"}</td><td>{item}</td><td>{whatIDo[index % whatIDo.length]}</td></tr>)}</tbody></table></div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="System Metrics · KPI Register" code="KPI-0004" className="sap-stats-window" >
+          <div className="sap-kpi-grid">{stats.map((stat) => <div className="sap-kpi" key={stat.code}><span>{stat.code}</span><strong>{stat.value}</strong><small>{stat.label}</small></div>)}</div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="Experience · Journal Entry" code="JE-0004 · POSTED" className="sap-experience-window" >
+          <div className="sap-window-heading"><div><span className="sap-form-caption">Professional journey · present to past</span><h2>Circuit <em>trace.</em></h2></div><p>Each role adds a new layer to the system: analysis, integration, leadership, and dependable delivery.</p></div>
+          <div className="sap-table-wrap"><table className="sap-table sap-journal-table"><thead><tr><th>Period</th><th>Journal Entry</th><th>Company</th><th>Description</th><th>Skills</th></tr></thead><tbody>{experience.map((item, index) => <tr key={item.title}><td>{item.year}</td><td><strong>{String(index + 1).padStart(2, "0")} · {item.title}</strong></td><td>{item.company}</td><td>{item.detail}</td><td>{item.skills.slice(0, 3).join(" · ")}</td></tr>)}</tbody></table></div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="Education · Master Data" code="ED-REGISTER" className="sap-education-window" >
+          <div className="sap-field-grid"><Field label="MASTER'S IN BUSINESS MANAGEMENT" value="University of Siena, Italy · 2016–2019" /><Field label="DETAILS" value="Studied international management, corporate valuation, business law, strategic management, and financial accounting." /><Field label="BACHELOR OF COMMERCE (B.COM)" value="Mahatma Gandhi College, Kerala University · 2012–2015" /><Field label="DETAILS" value="Focused on auditing, management accounting, costing, economics, and business law." /><Field label="LANGUAGES" value="English · Italian · Hindi · Malayalam" /><Field label="PROFILE" value="Professional working communication across multicultural business and technology teams." /></div>
+        </SapDocumentWindow>
+
+        <SapDocumentWindow title="Contact · Human Resources" code="BP-CONTACT" className="sap-contact-window" >
+          <div className="sap-contact-grid"><div><span className="sap-form-caption">Open channel</span><h2>Let&apos;s build<br /><em>better workflows.</em></h2><p className="sap-window-copy">Send a transmission and I&apos;ll route it to the right project, process, or system conversation.</p><div className="sap-contact-list"><a href="mailto:namadmohammed0@gmail.com"><Mail size={15} /> namadmohammed0@gmail.com <ArrowUpRight size={13} /></a><a href="tel:+916238414128"><Phone size={15} /> +91 62384 14128 <ArrowUpRight size={13} /></a><span><MapPin size={15} /> Vembayam, Trivandrum, Kerala</span></div></div><form className="sap-comms-form" onSubmit={(event) => { event.preventDefault(); setCommsSent(true); }}><label><span>NAME</span><input required name="name" placeholder="> Enter your name" /></label><label><span>EMAIL</span><input required type="email" name="email" placeholder="> Enter your email" /></label><label><span>MESSAGE</span><textarea required name="message" rows={5} placeholder="> Describe the mission" /></label><button className="sap-primary-button" type="submit">{commsSent ? "TRANSMISSION SENT" : "SEND TRANSMISSION"} <ArrowUpRight size={14} /></button></form></div>
+        </SapDocumentWindow>
+      </main>
+    </div>
+  );
+}
