@@ -3,22 +3,22 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==========================================================
-   SAP Fiori-style portfolio
-   Matches the sap-* class names used in src/pages/Home.tsx
+   Fiori-style portfolio (matches the classes in Home.tsx)
    ========================================================== */
 
 :root {
   --shell-top: #2f4c69;
   --shell-mid: #46657f;
   --shell-bottom: #5a7b98;
-  --accent: #0a6ed1;        /* Fiori blue */
-  --accent-light: #1aa7e8;  /* the "+" blue in the launchpad */
+  --accent: #0a6ed1;
+  --accent-light: #1aa7e8;
   --accent-dark: #085caf;
   --text: #32363a;
-  --muted: #6a6d70;
+  --muted: #5f6368;
   --line: #d9d9d9;
   --surface: #ffffff;
   --surface-alt: #f5f6f7;
+  --chip-bg: #e8f1fa;
   --on-shell: #ffffff;
   --on-shell-soft: rgba(255, 255, 255, 0.94);
   --radius: 8px;
@@ -36,10 +36,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
-h1, h2, h3, p { margin: 0; }
+h1, h2, h3, p, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
 :focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
 
-/* ---------- Page background: Fiori launchpad gradient + soft curves ---------- */
+/* ---------- Background ---------- */
 .consulting-portfolio {
   position: relative;
   min-height: 100vh;
@@ -59,269 +60,190 @@ h1, h2, h3, p { margin: 0; }
 .consulting-portfolio::before { width: 90vw; height: 90vw; left: -30vw; bottom: -62vw; }
 .consulting-portfolio::after  { width: 60vw; height: 130vh; right: -22vw; top: 10vh; transform: rotate(14deg); }
 
-/* ---------- Shell bar (optional header, see snippet) ---------- */
+/* ---------- Shell bar ---------- */
 .sap-shell {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(35, 62, 88, 0.92);
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(35, 62, 88, 0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 .sap-shell-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  max-width: 1120px;
-  height: 56px;
-  margin: 0 auto;
-  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  max-width: 1120px; height: 52px; margin: 0 auto; padding: 0 24px;
   color: var(--on-shell);
 }
 .sap-shell-brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; }
 .sap-shell-logo {
-  display: grid; place-items: center;
-  width: 30px; height: 30px;
-  border-radius: 6px;
-  background: var(--accent);
-  font-size: 12px; font-weight: 700;
+  display: grid; place-items: center; width: 28px; height: 28px;
+  border-radius: 6px; background: var(--accent); font-size: 11px; font-weight: 700;
 }
 .sap-shell nav { display: flex; gap: 22px; font-size: 13px; color: var(--on-shell-soft); }
-.sap-shell nav a { padding: 6px 0; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; }
+.sap-shell nav a { padding: 6px 0; border-bottom: 2px solid transparent; transition: border-color .15s; }
 .sap-shell nav a:hover { color: #fff; border-color: var(--accent-light); }
 
-/* ---------- Layout stack ---------- */
+/* ---------- Layout: tight vertical rhythm ---------- */
 .sap-document-stack {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 24px 56px;
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 14px;
+  max-width: 1120px; margin: 0 auto; padding: 0 24px 40px;
 }
-
-/* White "window" cards (Fiori object-page sections) */
-.sap-about-window,
-.sap-projects-window,
-.sap-analysis-window,
-.sap-skills-window,
-.sap-stats-window,
-.sap-experience-window,
-.sap-education-window,
-.sap-contact-window {
-  padding: 32px 36px;
+.sap-about-window, .sap-projects-window, .sap-skills-window, .sap-stats-window,
+.sap-experience-window, .sap-education-window, .sap-contact-window {
+  padding: 22px 28px;
   background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
-/* ---------- Hero (sits directly on the gradient, like the launchpad) ---------- */
-.sap-hero-window { padding: 72px 0 8px; color: var(--on-shell); }
+/* ---------- Hero ---------- */
+.consulting-portfolio .sap-hero-window { padding: 40px 0 0; color: #fff; }
 .sap-hero-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: 56px;
-  align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 40px; align-items: center;
 }
 .sap-hero-copy h1 {
-  margin: 14px 0 20px;
-  font-size: clamp(36px, 5.2vw, 60px);
-  line-height: 1.06;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  margin: 10px 0 14px;
+  font-size: clamp(34px, 5vw, 56px); line-height: 1.05; font-weight: 700; letter-spacing: -0.02em;
+  color: #fff;
 }
-.sap-hero-copy h1 em { font-style: normal; font-weight: 300; color: #bfe3f7; }
-.sap-hero-copy p { max-width: 540px; font-size: 17px; line-height: 1.6; color: var(--on-shell-soft); }
-.sap-hero-window .sap-form-caption { color: #bfe3f7; }
-
-.sap-inline-meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 24px; font-size: 14px; color: var(--on-shell-soft); }
+.sap-hero-copy h1 em { font-style: normal; font-weight: 300; color: #cfeaff; }
+.consulting-portfolio .sap-hero-window .sap-form-caption { color: #cfeaff; }
+.consulting-portfolio .sap-hero-window p { max-width: 540px; font-size: 16px; line-height: 1.55; color: var(--on-shell-soft); }
+.sap-inline-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 16px; font-size: 14px; color: var(--on-shell-soft); }
 .sap-inline-meta span { display: inline-flex; align-items: center; gap: 7px; }
 
-.sap-data-strip {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 22px;
-}
-.sap-data-strip span {
-  padding: 4px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 999px;
-  font-size: 12px;
-  color: var(--on-shell-soft);
-}
-
-.sap-action-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.sap-primary-button,
-.sap-secondary-button {
+.sap-action-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.sap-primary-button, .sap-secondary-button {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 40px; padding: 0 18px;
-  border-radius: 6px;
-  font-size: 14px; font-weight: 600;
-  transition: background .15s, border-color .15s, transform .15s;
+  height: 38px; padding: 0 16px; border-radius: 6px;
+  font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: background .15s, border-color .15s;
 }
 .sap-primary-button { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
 .sap-primary-button:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
-.sap-secondary-button { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.6); }
-.sap-secondary-button:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; }
+.sap-secondary-button { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.65); }
+.sap-secondary-button:hover { background: rgba(255, 255, 255, 0.14); border-color: #fff; }
 
-/* Hero badge: initials, or a photo (see .sap-photo) */
-.sap-hero-badge { display: grid; justify-items: center; gap: 16px; text-align: center; }
+.sap-hero-badge { display: grid; justify-items: center; }
 .sap-badge-ring {
-  display: grid; place-items: center;
-  width: 190px; height: 190px;
-  border-radius: 50%;
+  display: grid; place-items: center; width: 170px; height: 170px; border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
   border: 2px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.06);
   overflow: hidden;
 }
-.sap-badge-ring span { font-size: 54px; font-weight: 300; letter-spacing: 0.02em; }
+.sap-badge-ring span { font-size: 50px; font-weight: 300; color: #fff; }
 .sap-photo { width: 100%; height: 100%; object-fit: cover; display: block; }
-.sap-hero-badge small { font-size: 12px; line-height: 1.5; color: var(--on-shell-soft); }
 
 .sap-form-footer {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px;
-  margin-top: 48px; padding: 16px 20px;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 22px;
+  margin-top: 32px; padding: 12px 18px;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius);
-  color: var(--on-shell);
 }
-.sap-form-footer span { font-size: 12px; color: var(--on-shell-soft); }
-.sap-form-footer strong { font-size: 16px; font-weight: 600; }
-.sap-form-footer em { font-style: normal; color: #bfe3f7; }
-.sap-form-footer small { font-size: 13px; color: var(--on-shell-soft); }
+.consulting-portfolio .sap-form-footer strong { font-size: 16px; font-weight: 600; color: #fff; }
+.sap-form-footer em { font-style: normal; color: #cfeaff; }
+.consulting-portfolio .sap-form-footer small { font-size: 13px; color: var(--on-shell-soft); }
 
-/* ---------- Shared section typography ---------- */
+/* ---------- Section headings: one line, no filler text ---------- */
 .sap-form-caption { display: block; font-size: 13px; font-weight: 600; color: var(--accent); }
-.sap-hero-copy .sap-form-caption { font-size: 13px; }
-.sap-about-window h2, .sap-projects-window h2, .sap-analysis-window h2, .sap-skills-window h2,
-.sap-experience-window h2, .sap-education-window h2, .sap-contact-window h2 {
-  margin-top: 8px;
-  font-size: clamp(26px, 3.2vw, 36px);
-  line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--text);
+.sap-window-heading { padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+.sap-window-heading h2 {
+  margin-top: 4px; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15;
+  font-weight: 700; letter-spacing: -0.015em; color: var(--text);
 }
-.sap-about-window h2 em, .sap-projects-window h2 em, .sap-analysis-window h2 em, .sap-skills-window h2 em,
-.sap-experience-window h2 em, .sap-education-window h2 em, .sap-contact-window h2 em {
-  font-style: normal; font-weight: 300; color: var(--accent);
-}
-.sap-section-intro, .sap-window-heading {
-  display: flex; justify-content: space-between; align-items: flex-end; gap: 32px;
-  padding-bottom: 20px; margin-bottom: 24px;
-  border-bottom: 1px solid var(--line);
-}
-.sap-window-heading > p { max-width: 340px; font-size: 14px; line-height: 1.55; color: var(--muted); }
-.sap-window-copy { max-width: 720px; margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: var(--muted); }
+.sap-window-heading h2 em { font-style: normal; font-weight: 300; color: var(--accent); }
+.sap-window-copy { max-width: 760px; margin-bottom: 14px; font-size: 15px; line-height: 1.65; color: var(--muted); }
 
-.sap-identity-mark { display: grid; justify-items: center; gap: 4px; }
-.sap-identity-mark strong {
-  display: grid; place-items: center;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--accent); color: #fff;
-  font-size: 18px;
-}
-.sap-identity-mark span { font-size: 11px; color: var(--muted); }
-
-/* ---------- Form-style fields ---------- */
+/* ---------- Fields ---------- */
 .sap-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
-.sap-field { display: grid; gap: 4px; padding: 14px 0; border-bottom: 1px solid #ececec; }
+.sap-field { display: grid; gap: 3px; padding: 10px 0; border-top: 1px solid #ececec; }
 .sap-field span { font-size: 12px; color: var(--muted); }
-.sap-field strong { font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--text); }
+.sap-field strong { font-size: 14px; font-weight: 500; line-height: 1.45; color: var(--text); }
 
-/* ---------- Projects ---------- */
-.sap-sales-orders { display: grid; gap: 16px; }
-.sap-sales-order {
-  padding: 4px 20px 16px;
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  background: var(--surface);
-  transition: box-shadow .18s, border-color .18s;
-}
-.sap-sales-order:hover { box-shadow: 0 4px 14px rgba(18, 38, 58, 0.14); border-left-color: var(--accent-light); }
-.sap-order-top {
-  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  padding: 14px 0 10px;
-  border-bottom: 1px solid #ececec;
-}
-.sap-order-top strong { font-size: 14px; color: var(--text); }
-.sap-order-top span {
-  padding: 2px 10px; border-radius: 999px;
-  background: #e5f1fb; color: var(--accent-dark);
-  font-size: 12px; font-weight: 600;
-}
-.sap-order-fields .sap-field:last-child { grid-column: 1 / -1; }
-.sap-row-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 8px;
-  font-size: 13px; font-weight: 600; color: var(--accent);
-}
-.sap-row-link:hover { color: var(--accent-dark); text-decoration: underline; }
-
-/* ---------- Tables ---------- */
-.sap-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
-.sap-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
-.sap-table th {
-  padding: 12px 16px; text-align: left;
-  background: var(--surface-alt);
-  border-bottom: 1px solid var(--line);
-  font-size: 12px; font-weight: 600; color: var(--muted);
-}
-.sap-table td { padding: 14px 16px; border-bottom: 1px solid #ececec; vertical-align: top; line-height: 1.5; }
-.sap-table tbody tr:last-child td { border-bottom: 0; }
-.sap-table tbody tr:hover { background: #f1f8fe; }
-.sap-table td:first-child { color: var(--muted); white-space: nowrap; }
-.sap-journal-table { min-width: 860px; }
-.sap-journal-table td strong { font-weight: 600; }
-
-/* ---------- KPI tiles (Fiori numeric tiles) ---------- */
-.sap-stats-window { padding: 24px 36px; }
-.sap-kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-.sap-kpi {
-  display: grid; gap: 4px;
-  padding: 18px 20px;
-  background: var(--surface-alt);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-.sap-kpi span { font-size: 12px; color: var(--muted); }
-.sap-kpi strong { font-size: 40px; font-weight: 300; line-height: 1.1; color: var(--accent); }
+/* ---------- KPI ---------- */
+.sap-stats-window { padding: 16px 28px; }
+.sap-kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.sap-kpi { padding: 12px 16px; background: var(--surface-alt); border: 1px solid var(--line); border-radius: 6px; }
+.sap-kpi strong { display: block; font-size: 34px; font-weight: 300; line-height: 1.1; color: var(--accent); }
 .sap-kpi small { font-size: 13px; color: var(--text); }
 
-/* ---------- Contact ---------- */
-.sap-contact-list { display: grid; max-width: 440px; margin-top: 8px; border-top: 1px solid var(--line); }
-.sap-contact-list a, .sap-contact-list span {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 14px; color: var(--text);
+/* ---------- Chips + skills ---------- */
+.sap-chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.sap-chip {
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--chip-bg); color: var(--accent-dark);
+  font-size: 12.5px; font-weight: 600;
 }
+.sap-skill-row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 11px 0; border-top: 1px solid #ececec; }
+.sap-skill-row:first-child { border-top: 0; padding-top: 0; }
+.sap-skill-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+
+/* ---------- Projects ---------- */
+.sap-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.sap-project {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 16px 18px;
+  border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px;
+  transition: box-shadow .18s;
+}
+.sap-project:hover { box-shadow: 0 4px 14px rgba(18, 38, 58, 0.14); }
+.sap-project:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.sap-project-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; }
+.sap-project-no { font-size: 12px; font-weight: 600; color: var(--muted); }
+.sap-project h3 { font-size: 16px; font-weight: 700; color: var(--text); }
+.sap-project-note { margin-left: auto; padding: 1px 9px; border-radius: 999px; background: #fff4d6; color: #7a5a00; font-size: 11.5px; font-weight: 600; }
+.sap-project p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+.sap-project .sap-chip-list { margin-top: auto; }
+
+/* ---------- Experience table ---------- */
+.sap-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+.sap-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sap-table th {
+  padding: 10px 14px; text-align: left; white-space: nowrap;
+  background: var(--surface-alt); border-bottom: 1px solid var(--line);
+  font-size: 12px; font-weight: 600; color: var(--muted);
+}
+.sap-table td { padding: 12px 14px; border-bottom: 1px solid #ececec; vertical-align: top; line-height: 1.45; }
+.sap-table tbody tr:last-child td { border-bottom: 0; }
+.sap-table tbody tr:hover { background: #f1f8fe; }
+.sap-table td:first-child { white-space: nowrap; color: var(--muted); }
+.sap-journal-table { min-width: 820px; }
+
+/* ---------- Education ---------- */
+.sap-edu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.sap-edu { padding: 14px 18px; border: 1px solid var(--line); border-left: 4px solid var(--accent-light); border-radius: 6px; }
+.sap-edu-period { font-size: 12px; font-weight: 600; color: var(--accent); }
+.sap-edu h3 { margin: 2px 0; font-size: 15px; font-weight: 700; }
+.sap-edu strong { display: block; font-size: 13px; font-weight: 500; color: var(--text); }
+.sap-edu p { margin-top: 6px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.sap-edu-languages { margin-top: 10px; grid-template-columns: 1fr; }
+
+/* ---------- Contact ---------- */
+.sap-contact-list { display: grid; grid-template-columns: repeat(3, minmax(0, auto)); justify-content: start; gap: 6px 32px; border-top: 1px solid var(--line); }
+.sap-contact-list a, .sap-contact-list span { display: flex; align-items: center; gap: 10px; padding: 12px 0; font-size: 14px; color: var(--text); }
 .sap-contact-list svg:first-child { color: var(--accent); flex: none; }
-.sap-contact-list a svg:last-child { margin-left: auto; color: var(--muted); }
+.sap-contact-list a svg:last-child { color: var(--muted); }
 .sap-contact-list a:hover { color: var(--accent); }
 
 /* ---------- Mobile ---------- */
 @media (max-width: 860px) {
   .sap-shell nav { display: none; }
-  .sap-hero-layout { grid-template-columns: 1fr; gap: 32px; }
-  .sap-hero-window { padding-top: 40px; }
-  .sap-hero-badge { justify-items: start; text-align: left; order: -1; }
-  .sap-badge-ring { width: 130px; height: 130px; }
-  .sap-badge-ring span { font-size: 38px; }
-  .sap-field-grid { grid-template-columns: 1fr; }
+  .sap-hero-layout { grid-template-columns: 1fr; gap: 24px; }
+  .sap-hero-badge { justify-items: start; order: -1; }
+  .sap-badge-ring { width: 120px; height: 120px; }
+  .sap-badge-ring span { font-size: 36px; }
+  .consulting-portfolio .sap-hero-window { padding-top: 28px; }
+  .sap-field-grid, .sap-project-grid, .sap-edu-grid { grid-template-columns: 1fr; }
   .sap-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .sap-section-intro, .sap-window-heading { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .sap-about-window, .sap-projects-window, .sap-analysis-window, .sap-skills-window,
-  .sap-experience-window, .sap-education-window, .sap-contact-window { padding: 24px 18px; }
+  .sap-skill-row { grid-template-columns: 1fr; gap: 6px; }
+  .sap-contact-list { grid-template-columns: 1fr; }
+  .sap-about-window, .sap-projects-window, .sap-skills-window, .sap-experience-window,
+  .sap-education-window, .sap-contact-window { padding: 18px 16px; }
 }
 @media (max-width: 480px) {
-  .sap-document-stack { padding: 0 14px 40px; }
+  .sap-document-stack { padding: 0 12px 32px; }
   .sap-shell-inner { padding: 0 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -329,100 +251,69 @@ h1, h2, h3, p { margin: 0; }
   * { transition: none !important; }
 }
 
-/* ---------- Hero text: force light colours on the dark gradient ---------- */
-.consulting-portfolio .sap-hero-window,
-.consulting-portfolio .sap-hero-window h1,
-.consulting-portfolio .sap-hero-window .sap-form-footer strong,
-.consulting-portfolio .sap-hero-window .sap-badge-ring span { color: #ffffff; }
-.consulting-portfolio .sap-hero-window h1 em { color: #cfeaff; }
-.consulting-portfolio .sap-hero-window p,
-.consulting-portfolio .sap-hero-window .sap-inline-meta,
-.consulting-portfolio .sap-hero-window .sap-inline-meta span,
-.consulting-portfolio .sap-hero-window .sap-data-strip span,
-.consulting-portfolio .sap-hero-window .sap-hero-badge small,
-.consulting-portfolio .sap-hero-window .sap-form-footer span,
-.consulting-portfolio .sap-hero-window .sap-form-footer small { color: rgba(255, 255, 255, 0.94); }
-.consulting-portfolio .sap-hero-window .sap-form-caption,
-.consulting-portfolio .sap-hero-window .sap-form-footer em { color: #cfeaff; }
-button.sap-secondary-button { font-family: inherit; cursor: pointer; }
-
 /* ==========================================================
-   PRINT: A4 portrait, exactly 3 pages
-   Page 1: profile, KPIs, business analysis
+   PRINT: A4 portrait, 3 pages
+   Page 1: profile, KPIs, skills
    Page 2: projects
-   Page 3: skills, experience, education, contact
-   (Best in Chrome / Edge: "Save as PDF", Margins: Default, Background graphics: on)
+   Page 3: experience, education, contact
+   Chrome / Edge: Save as PDF, A4, Margins Default, Background graphics ON
    ========================================================== */
 @page { size: A4 portrait; margin: 10mm; }
 @media print {
   html, body { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  body { font-size: 9pt; }
+  body { font-size: 9.5pt; }
   .consulting-portfolio { background: #fff !important; min-height: 0; overflow: visible; }
   .consulting-portfolio::before, .consulting-portfolio::after { display: none; }
-  .sap-shell, .sap-action-row, .sap-row-link, .sap-identity-mark,
-  .sap-window-heading > p, #contact .sap-window-copy { display: none !important; }
+  .sap-shell, .sap-action-row { display: none !important; }
 
-  .sap-document-stack { display: flex; flex-direction: column; gap: 4mm; max-width: none; padding: 0; }
-  #home { order: 1; } #about { order: 2; } #metrics { order: 3; } #business-analysis { order: 4; }
-  #work { order: 5; break-before: page; }
-  #skills { order: 6; break-before: page; }
-  #experience { order: 7; } #education { order: 8; } #contact { order: 9; }
+  .sap-document-stack { gap: 5mm; max-width: none; padding: 0; }
+  #work, #experience { break-before: page; }
+  section { break-inside: avoid; }
 
-  .sap-about-window, .sap-projects-window, .sap-analysis-window, .sap-skills-window, .sap-stats-window,
+  .sap-about-window, .sap-projects-window, .sap-skills-window, .sap-stats-window,
   .sap-experience-window, .sap-education-window, .sap-contact-window {
-    padding: 3.5mm 5mm; box-shadow: none; border: 0.3mm solid #d9d9d9; border-radius: 2mm;
+    padding: 4mm 5mm; box-shadow: none; border: 0.3mm solid #d9d9d9; border-radius: 2mm;
   }
-  .sap-section-intro, .sap-window-heading { padding-bottom: 2mm; margin-bottom: 2.5mm; }
-  .sap-about-window h2, .sap-projects-window h2, .sap-analysis-window h2, .sap-skills-window h2,
-  .sap-experience-window h2, .sap-education-window h2, .sap-contact-window h2 { font-size: 15pt; margin-top: 1mm; }
+  .sap-window-heading { padding-bottom: 2mm; margin-bottom: 3mm; }
+  .sap-window-heading h2 { font-size: 15pt; }
   .sap-form-caption { font-size: 8pt; }
 
-  /* Hero becomes a dark-on-white header */
-  .consulting-portfolio .sap-hero-window { padding: 0 0 3mm; color: #1d2d3e; border-bottom: 0.5mm solid #0a6ed1; }
-  .consulting-portfolio .sap-hero-window h1 { color: #1d2d3e; font-size: 25pt; margin: 1mm 0 2mm; }
-  .consulting-portfolio .sap-hero-window h1 em { color: #0a6ed1; }
-  .consulting-portfolio .sap-hero-window p, .consulting-portfolio .sap-hero-window .sap-inline-meta,
-  .consulting-portfolio .sap-hero-window .sap-inline-meta span { color: #3b4249; font-size: 9pt; line-height: 1.45; }
+  /* Hero: dark text on white */
+  .consulting-portfolio .sap-hero-window { padding: 0 0 4mm; color: #1d2d3e; border-bottom: 0.5mm solid #0a6ed1; }
+  .sap-hero-copy h1 { color: #1d2d3e; font-size: 26pt; margin: 1mm 0 3mm; }
+  .sap-hero-copy h1 em { color: #0a6ed1; }
   .consulting-portfolio .sap-hero-window .sap-form-caption { color: #0a6ed1; }
+  .consulting-portfolio .sap-hero-window p, .sap-inline-meta { color: #3b4249; font-size: 9.5pt; }
   .sap-hero-layout { grid-template-columns: 1fr 34mm; gap: 8mm; }
-  .sap-inline-meta { margin-top: 2mm; }
-  .sap-data-strip { margin-top: 2mm; }
-  .consulting-portfolio .sap-hero-window .sap-data-strip span { color: #3b4249; border-color: #aab4be; font-size: 7.5pt; padding: 0.8mm 2.5mm; }
-  .sap-badge-ring { width: 26mm; height: 26mm; background: none; border: 0.5mm solid #0a6ed1; box-shadow: none; }
-  .consulting-portfolio .sap-hero-window .sap-badge-ring span { color: #0a6ed1; font-size: 20pt; }
-  .consulting-portfolio .sap-hero-window .sap-hero-badge small { color: #3b4249; font-size: 7pt; }
-  .sap-form-footer { margin-top: 3mm; padding: 2mm 3mm; background: #f5f6f7; border: 0.3mm solid #d9d9d9; }
-  .consulting-portfolio .sap-hero-window .sap-form-footer strong { color: #1d2d3e; font-size: 10pt; }
-  .consulting-portfolio .sap-hero-window .sap-form-footer span, .consulting-portfolio .sap-hero-window .sap-form-footer small { color: #3b4249; font-size: 7.5pt; }
-  .consulting-portfolio .sap-hero-window .sap-form-footer em { color: #0a6ed1; }
+  .sap-inline-meta { margin-top: 3mm; }
+  .sap-badge-ring { width: 30mm; height: 30mm; background: none; border: 0.5mm solid #0a6ed1; box-shadow: none; }
+  .sap-badge-ring span { color: #0a6ed1; font-size: 22pt; }
+  .sap-form-footer { margin-top: 4mm; padding: 2.5mm 4mm; background: #f5f6f7; border-color: #d9d9d9; }
+  .consulting-portfolio .sap-form-footer strong { color: #1d2d3e; font-size: 11pt; }
+  .sap-form-footer em { color: #0a6ed1; }
+  .consulting-portfolio .sap-form-footer small { color: #3b4249; font-size: 8.5pt; }
 
-  /* Fields, tables, KPIs */
-  .sap-window-copy { font-size: 9pt; line-height: 1.5; margin-bottom: 2mm; color: #3b4249; }
-  .sap-field-grid { gap: 0 8mm; }
-  .sap-field { padding: 1.4mm 0; gap: 0.5mm; }
-  .sap-field span { font-size: 7pt; } .sap-field strong { font-size: 8.5pt; line-height: 1.35; }
-  .sap-kpi-grid { gap: 3mm; }
-  .sap-stats-window { padding: 2.5mm 5mm; }
-  .sap-kpi { padding: 2mm 3mm; } .sap-kpi strong { font-size: 20pt; } .sap-kpi small { font-size: 7.5pt; }
+  .sap-window-copy { font-size: 9.5pt; line-height: 1.5; margin-bottom: 3mm; color: #3b4249; }
+  .sap-field { padding: 2mm 0; } .sap-field span { font-size: 7.5pt; } .sap-field strong { font-size: 9pt; }
+  .sap-stats-window { padding: 3mm 5mm; }
+  .sap-kpi { padding: 2.5mm 3mm; } .sap-kpi strong { font-size: 20pt; } .sap-kpi small { font-size: 8pt; }
+  .sap-chip { padding: 0.6mm 2.5mm; font-size: 8pt; border: 0.2mm solid #b9d3ee; }
+  .sap-skill-row { grid-template-columns: 38mm 1fr; padding: 2.5mm 0; }
+  .sap-skill-label { font-size: 8.5pt; }
+
+  .sap-project-grid { gap: 4mm; }
+  .sap-project { padding: 4mm 4.5mm; break-inside: avoid; gap: 2.5mm; }
+  .sap-project h3 { font-size: 11pt; } .sap-project p { font-size: 9pt; }
+  .sap-project-note { font-size: 7pt; }
+
   .sap-table-wrap { overflow: visible; }
-  .sap-table { min-width: 0; font-size: 8pt; }
-  .sap-table th { padding: 1.3mm 2.5mm; font-size: 7pt; }
-  .sap-table td { padding: 1.3mm 2.5mm; line-height: 1.35; }
+  .sap-journal-table { min-width: 0; font-size: 8pt; }
+  .sap-table th { padding: 1.5mm 2.5mm; font-size: 7pt; }
+  .sap-table td { padding: 2mm 2.5mm; }
   .sap-table tr { break-inside: avoid; }
-  .sap-journal-table { font-size: 7.5pt; }
 
-  /* Projects: compact 2-column cards */
-  .sap-sales-orders { grid-template-columns: 1fr 1fr; gap: 4mm; }
-  .sap-sales-order { padding: 1.5mm 3.5mm 3mm; break-inside: avoid; }
-  .sap-order-top { padding: 2mm 0; }
-  .sap-order-top strong { font-size: 8.5pt; } .sap-order-top span { font-size: 6.5pt; padding: 0.4mm 2mm; }
-  .sap-order-fields { grid-template-columns: 1fr; }
-  .sap-order-fields .sap-field:nth-child(3), .sap-order-fields .sap-field:nth-child(4),
-  .sap-order-fields .sap-field:nth-child(5) { display: none; }
-  .sap-order-fields .sap-field:last-child { border-bottom: 0; }
-
-  /* Contact on one line */
-  .sap-contact-list { max-width: none; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; border-top: 0; margin-top: 0; }
-  .sap-contact-list a, .sap-contact-list span { font-size: 8pt; padding: 1.5mm 0; }
+  .sap-edu { padding: 3mm 4mm; } .sap-edu h3 { font-size: 10pt; } .sap-edu p, .sap-edu strong { font-size: 8.5pt; }
+  .sap-contact-list { gap: 2mm 8mm; }
+  .sap-contact-list a, .sap-contact-list span { font-size: 9pt; padding: 2mm 0; }
   .sap-contact-list a svg:last-child { display: none; }
 }
