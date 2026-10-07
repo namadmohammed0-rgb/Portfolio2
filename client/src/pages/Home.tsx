@@ -1,4 +1,11 @@
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Mail, MapPin, Phone, Printer } from "lucide-react";
+
+/*
+  PHOTO: put your picture at  public/photo.jpg
+  If the file is missing, the "NM" initials are shown instead.
+*/
+const PHOTO_SRC = `${import.meta.env.BASE_URL}photo.jpg`;
 
 const projects = [
   {
@@ -95,12 +102,7 @@ const experience = [
     company: "Indus Novature Softech Pvt. Ltd",
     detail:
       "Supported SAP B1 implementations, production reporting, process documentation, integration requirements, and user adoption.",
-    skills: [
-      "SAP B1",
-      "Functional Consulting",
-      "UAT",
-      "Documentation",
-    ],
+    skills: ["SAP B1", "Functional Consulting", "UAT", "Documentation"],
   },
   {
     year: "2020 — 2022",
@@ -121,12 +123,7 @@ const experience = [
     company: "CA Alex Kuriakose & Co",
     detail:
       "Built a strong foundation in accounting operations, audit support, reconciliations, and financial controls.",
-    skills: [
-      "Accounting",
-      "Reconciliation",
-      "Financial Controls",
-      "Audit",
-    ],
+    skills: ["Accounting", "Reconciliation", "Financial Controls", "Audit"],
   },
 ];
 
@@ -137,13 +134,7 @@ const stats = [
   { label: "Certifications", value: "04", code: "CERT" },
 ];
 
-function Field({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="sap-field">
       <span>{label}</span>
@@ -153,15 +144,38 @@ function Field({
 }
 
 export default function Home() {
+  const [photoOk, setPhotoOk] = useState(true);
+
   return (
     <div className="consulting-portfolio">
-      <main id="top" className="sap-document-stack">
+      {/* SHELL BAR (hidden when printing) */}
+      <header className="sap-shell">
+        <div className="sap-shell-inner">
+          <div className="sap-shell-brand">
+            <span className="sap-shell-logo">NM</span>
+            Namad Mohammed
+          </div>
+          <nav>
+            <a href="#about">About</a>
+            <a href="#work">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
 
+      {/*
+        Section order matters for the 3-page A4 print:
+          Page 1: home, about, metrics, business-analysis
+          Page 2: work
+          Page 3: skills, experience, education, contact
+      */}
+      <main id="top" className="sap-document-stack">
         {/* HERO */}
         <section id="home" className="sap-hero-window">
           <div className="sap-hero-layout">
             <div className="sap-hero-copy">
-
               <div className="sap-form-caption">
                 AVAILABLE · ERP INTEGRATION & BUSINESS ANALYSIS
               </div>
@@ -173,9 +187,9 @@ export default function Home() {
               </h1>
 
               <p>
-                Connecting business requirements, ERP systems, APIs, data,
-                and automation to build practical solutions that reduce manual
-                work and improve business processes.
+                Connecting business requirements, ERP systems, APIs, data, and
+                automation to build practical solutions that reduce manual work
+                and improve business processes.
               </p>
 
               <div className="sap-inline-meta">
@@ -197,10 +211,7 @@ export default function Home() {
               </div>
 
               <div className="sap-action-row">
-                <a
-                  className="sap-primary-button"
-                  href="#work"
-                >
+                <a className="sap-primary-button" href="#work">
                   View Projects
                   <ArrowUpRight size={14} />
                 </a>
@@ -212,12 +223,30 @@ export default function Home() {
                   Contact Me
                   <Mail size={14} />
                 </a>
+
+                <button
+                  type="button"
+                  className="sap-secondary-button"
+                  onClick={() => window.print()}
+                >
+                  Print / Save PDF
+                  <Printer size={14} />
+                </button>
               </div>
             </div>
 
             <div className="sap-hero-badge">
               <div className="sap-badge-ring">
-                <span>NM</span>
+                {photoOk ? (
+                  <img
+                    className="sap-photo"
+                    src={PHOTO_SRC}
+                    alt="Namad Mohammed"
+                    onError={() => setPhotoOk(false)}
+                  />
+                ) : (
+                  <span>NM</span>
+                )}
               </div>
 
               <small>
@@ -235,22 +264,15 @@ export default function Home() {
               Business need <em>→</em> system solution
             </strong>
 
-            <small>
-              Requirements · Mapping · Integration · Delivery
-            </small>
+            <small>Requirements · Mapping · Integration · Delivery</small>
           </div>
         </section>
 
         {/* ABOUT */}
-        <section
-          id="about"
-          className="sap-about-window"
-        >
+        <section id="about" className="sap-about-window">
           <div className="sap-section-intro">
             <div>
-              <span className="sap-form-caption">
-                Professional profile
-              </span>
+              <span className="sap-form-caption">Professional profile</span>
 
               <h2>
                 Connecting business
@@ -266,35 +288,21 @@ export default function Home() {
           </div>
 
           <p className="sap-window-copy">
-            Business Analyst with experience across ERP integration,
-            business process improvement, automation, reporting,
-            SQL/HANA, APIs, and third-party system integration.
-            I work between business requirements and technical delivery,
-            translating operational needs into practical systems and
-            integration solutions.
+            Business Analyst with experience across ERP integration, business
+            process improvement, automation, reporting, SQL/HANA, APIs, and
+            third-party system integration. I work between business
+            requirements and technical delivery, translating operational needs
+            into practical systems and integration solutions.
           </p>
 
           <div className="sap-field-grid">
-            <Field
-              label="NAME"
-              value="Namad Mohammed"
-            />
-
-            <Field
-              label="POSITION"
-              value="ERP Integration & Business Analyst"
-            />
-
-            <Field
-              label="LOCATION"
-              value="Trivandrum, Kerala / Remote"
-            />
-
+            <Field label="NAME" value="Namad Mohammed" />
+            <Field label="POSITION" value="ERP Integration & Business Analyst" />
+            <Field label="LOCATION" value="Trivandrum, Kerala / Remote" />
             <Field
               label="EXPERTISE"
               value="ERP · APIs · SQL/HANA · Automation"
             />
-
             <Field
               label="EXPERIENCE"
               value="10+ years across finance, ERP, and delivery"
@@ -302,107 +310,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROJECTS */}
-        <section
-          id="work"
-          className="sap-projects-window"
-        >
-          <div className="sap-window-heading">
-            <div>
-              <span className="sap-form-caption">
-                Selected projects
-              </span>
-
-              <h2>
-                Relevant work,
-                <br />
-                <em>clearly presented.</em>
-              </h2>
-            </div>
-
-            <p>
-              Selected experience across ERP, manufacturing,
-              portals, reporting, integration, automation,
-              and workflow delivery.
-            </p>
-          </div>
-
-          <div className="sap-sales-orders">
-            {projects.map((project) => (
-              <article
-                className="sap-sales-order"
-                key={project.no}
-              >
-                <div className="sap-order-top">
-                  <strong>
-                    PROJECT {project.no}
-                  </strong>
-
-                  <span>
-                    {project.no === "07"
-                      ? "PERSONAL PROJECT"
-                      : "SELECTED EXPERIENCE"}
-                  </span>
-                </div>
-
-                <div className="sap-field-grid sap-order-fields">
-                  <Field
-                    label="PROJECT"
-                    value={project.title}
-                  />
-
-                  <Field
-                    label="CAPABILITIES"
-                    value={project.tags.join(" · ")}
-                  />
-
-                  <Field
-                    label="ROLE"
-                    value="Business Analysis / Integration"
-                  />
-
-                  <Field
-                    label="AREA"
-                    value={
-                      project.no === "07"
-                        ? "Personal project"
-                        : "ERP / Business Systems"
-                    }
-                  />
-
-                  <Field
-                    label="STATUS"
-                    value="Selected experience"
-                  />
-
-                  <Field
-                    label="OUTCOME"
-                    value={project.text}
-                  />
-                </div>
-
-                <a
-                  className="sap-row-link"
-                  href="#contact"
-                >
-                  Discuss this capability
-                  <ArrowUpRight size={13} />
-                </a>
-              </article>
+        {/* KPI */}
+        <section id="metrics" className="sap-stats-window">
+          <div className="sap-kpi-grid">
+            {stats.map((stat) => (
+              <div className="sap-kpi" key={stat.code}>
+                <span>{stat.code}</span>
+                <strong>{stat.value}</strong>
+                <small>{stat.label}</small>
+              </div>
             ))}
           </div>
         </section>
 
         {/* BUSINESS ANALYSIS */}
-        <section
-          id="business-analysis"
-          className="sap-analysis-window"
-        >
+        <section id="business-analysis" className="sap-analysis-window">
           <div className="sap-window-heading">
             <div>
-              <span className="sap-form-caption">
-                Business analysis
-              </span>
+              <span className="sap-form-caption">Business analysis</span>
 
               <h2>
                 From questions
@@ -425,12 +350,8 @@ export default function Home() {
               <tbody>
                 {businessAnalysis.map((item, index) => (
                   <tr key={item}>
-                    <td>
-                      {String(index + 1).padStart(2, "0")}
-                    </td>
-
+                    <td>{String(index + 1).padStart(2, "0")}</td>
                     <td>{item}</td>
-
                     <td>Business Analysis</td>
                   </tr>
                 ))}
@@ -439,16 +360,71 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SKILLS */}
-        <section
-          id="skills"
-          className="sap-skills-window"
-        >
+        {/* PROJECTS */}
+        <section id="work" className="sap-projects-window">
           <div className="sap-window-heading">
             <div>
-              <span className="sap-form-caption">
-                Skills matrix
-              </span>
+              <span className="sap-form-caption">Selected projects</span>
+
+              <h2>
+                Relevant work,
+                <br />
+                <em>clearly presented.</em>
+              </h2>
+            </div>
+
+            <p>
+              Selected experience across ERP, manufacturing, portals,
+              reporting, integration, automation, and workflow delivery.
+            </p>
+          </div>
+
+          <div className="sap-sales-orders">
+            {projects.map((project) => (
+              <article className="sap-sales-order" key={project.no}>
+                <div className="sap-order-top">
+                  <strong>PROJECT {project.no}</strong>
+
+                  <span>
+                    {project.no === "07"
+                      ? "PERSONAL PROJECT"
+                      : "SELECTED EXPERIENCE"}
+                  </span>
+                </div>
+
+                <div className="sap-field-grid sap-order-fields">
+                  <Field label="PROJECT" value={project.title} />
+                  <Field
+                    label="CAPABILITIES"
+                    value={project.tags.join(" · ")}
+                  />
+                  <Field label="ROLE" value="Business Analysis / Integration" />
+                  <Field
+                    label="AREA"
+                    value={
+                      project.no === "07"
+                        ? "Personal project"
+                        : "ERP / Business Systems"
+                    }
+                  />
+                  <Field label="STATUS" value="Selected experience" />
+                  <Field label="OUTCOME" value={project.text} />
+                </div>
+
+                <a className="sap-row-link" href="#contact">
+                  Discuss this capability
+                  <ArrowUpRight size={13} />
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* SKILLS */}
+        <section id="skills" className="sap-skills-window">
+          <div className="sap-window-heading">
+            <div>
+              <span className="sap-form-caption">Skills matrix</span>
 
               <h2>
                 Working toolkit,
@@ -458,8 +434,8 @@ export default function Home() {
             </div>
 
             <p>
-              ERP, integration, data, automation, and
-              business analysis capabilities used across delivery.
+              ERP, integration, data, automation, and business analysis
+              capabilities used across delivery.
             </p>
           </div>
 
@@ -483,12 +459,8 @@ export default function Home() {
                         ? "Data & Integration"
                         : "Automation"}
                     </td>
-
                     <td>{item}</td>
-
-                    <td>
-                      {whatIDo[index % whatIDo.length]}
-                    </td>
+                    <td>{whatIDo[index % whatIDo.length]}</td>
                   </tr>
                 ))}
               </tbody>
@@ -496,35 +468,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* KPI */}
-        <section
-          id="metrics"
-          className="sap-stats-window"
-        >
-          <div className="sap-kpi-grid">
-            {stats.map((stat) => (
-              <div
-                className="sap-kpi"
-                key={stat.code}
-              >
-                <span>{stat.code}</span>
-                <strong>{stat.value}</strong>
-                <small>{stat.label}</small>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* EXPERIENCE */}
-        <section
-          id="experience"
-          className="sap-experience-window"
-        >
+        <section id="experience" className="sap-experience-window">
           <div className="sap-window-heading">
             <div>
-              <span className="sap-form-caption">
-                Professional journey
-              </span>
+              <span className="sap-form-caption">Professional journey</span>
 
               <h2>
                 Experience
@@ -534,8 +482,8 @@ export default function Home() {
             </div>
 
             <p>
-              Experience across business analysis, finance,
-              ERP, integration, automation, and technical delivery.
+              Experience across business analysis, finance, ERP, integration,
+              automation, and technical delivery.
             </p>
           </div>
 
@@ -565,14 +513,8 @@ export default function Home() {
                     </td>
 
                     <td>{item.company}</td>
-
                     <td>{item.detail}</td>
-
-                    <td>
-                      {item.skills
-                        .slice(0, 3)
-                        .join(" · ")}
-                    </td>
+                    <td>{item.skills.slice(0, 3).join(" · ")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -581,15 +523,10 @@ export default function Home() {
         </section>
 
         {/* EDUCATION */}
-        <section
-          id="education"
-          className="sap-education-window"
-        >
+        <section id="education" className="sap-education-window">
           <div className="sap-window-heading">
             <div>
-              <span className="sap-form-caption">
-                Education
-              </span>
+              <span className="sap-form-caption">Education</span>
 
               <h2>
                 Academic
@@ -604,27 +541,22 @@ export default function Home() {
               label="MASTER'S IN BUSINESS MANAGEMENT"
               value="University of Siena, Italy · 2016–2019"
             />
-
             <Field
               label="DETAILS"
               value="International management, corporate valuation, business law, strategic management, and financial accounting."
             />
-
             <Field
               label="BACHELOR OF COMMERCE (B.COM)"
               value="Mahatma Gandhi College, Kerala University · 2012–2015"
             />
-
             <Field
               label="DETAILS"
               value="Auditing, management accounting, costing, economics, and business law."
             />
-
             <Field
               label="LANGUAGES"
               value="English · Italian · Hindi · Malayalam"
             />
-
             <Field
               label="PROFILE"
               value="Professional working communication across multicultural business and technology teams."
@@ -633,15 +565,10 @@ export default function Home() {
         </section>
 
         {/* CONTACT */}
-        <section
-          id="contact"
-          className="sap-contact-window"
-        >
+        <section id="contact" className="sap-contact-window">
           <div className="sap-contact-grid">
             <div>
-              <span className="sap-form-caption">
-                Contact
-              </span>
+              <span className="sap-form-caption">Contact</span>
 
               <h2>
                 Let&apos;s build
@@ -650,13 +577,12 @@ export default function Home() {
               </h2>
 
               <p className="sap-window-copy">
-                For opportunities involving business analysis,
-                ERP integration, APIs, automation, SQL,
-                or business systems delivery, contact me directly.
+                For opportunities involving business analysis, ERP
+                integration, APIs, automation, SQL, or business systems
+                delivery, contact me directly.
               </p>
 
               <div className="sap-contact-list">
-
                 <a href="mailto:namadmohammed0@gmail.com">
                   <Mail size={15} />
                   namadmohammed0@gmail.com
@@ -673,12 +599,10 @@ export default function Home() {
                   <MapPin size={15} />
                   Trivandrum, Kerala
                 </span>
-
               </div>
             </div>
           </div>
         </section>
-
       </main>
     </div>
   );
