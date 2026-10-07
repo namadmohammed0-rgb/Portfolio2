@@ -1,11 +1,22 @@
-import { useState } from "react";
+import "../portfolio.css";
 import { ArrowUpRight, Mail, MapPin, Phone, Printer } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
-/*
-  PHOTO: put your picture at  public/photo.jpg
-  If the file is missing, the "NM" initials are shown instead.
-*/
-const PHOTO_SRC = `${import.meta.env.BASE_URL}photo.jpg`;
+const SITE_URL = "https://namadmohammed0-rgb.github.io/Portfolio2/";
+
+const CONTACT_VCARD = [
+  "BEGIN:VCARD",
+  "VERSION:3.0",
+  "FN:Namad Mohammed",
+  "N:Mohammed;Namad;;;",
+  "TITLE:ERP Integration & Business Analyst",
+  "EMAIL;TYPE=INTERNET:namadmohammed0@gmail.com",
+  "TEL;TYPE=CELL:+916238414128",
+  "ADR;TYPE=WORK:;;Trivandrum;Kerala;;India",
+  `URL:${SITE_URL}`,
+  "NOTE:ERP Integration | Business Analysis | SAP ERP | APIs | SQL | Automation",
+  "END:VCARD",
+].join("\r\n");
 
 const projects = [
   {
@@ -52,15 +63,6 @@ const projects = [
   },
 ];
 
-const whatIDo = [
-  "Business Analysis",
-  "ERP Integration",
-  "API Integration",
-  "Data & SQL",
-  "Automation",
-  "Solution Delivery",
-];
-
 const businessAnalysis = [
   "Requirements Gathering",
   "Process Mapping",
@@ -89,12 +91,7 @@ const experience = [
     company: "FieldNXT Pvt. Ltd",
     detail:
       "Leading SAP-integrated portals, workflow automation, BEAS manufacturing, SQL/HANA solutions, and third-party integrations.",
-    skills: [
-      "Business Analysis",
-      "SAP Integration",
-      "Team Leadership",
-      "Automation",
-    ],
+    skills: ["Business Analysis", "SAP Integration", "Team Leadership", "Automation"],
   },
   {
     year: "2023 — 2024",
@@ -110,12 +107,7 @@ const experience = [
     company: "CA Asha Zachariah & Co",
     detail:
       "Delivered reporting and analysis for 10+ clients, improved data validation, and supported audit and compliance work.",
-    skills: [
-      "Financial Analysis",
-      "Reporting",
-      "Data Validation",
-      "Audit Support",
-    ],
+    skills: ["Financial Analysis", "Reporting", "Data Validation", "Audit Support"],
   },
   {
     year: "2015 — 2016",
@@ -134,51 +126,62 @@ const stats = [
   { label: "Certifications", value: "04", code: "CERT" },
 ];
 
+const capabilities = [
+  "Requirements Gathering",
+  "ERP Integration",
+  "Process Mapping",
+  "API Coordination",
+  "Data Analysis",
+  "Automation",
+  "UAT & Reporting",
+  "Solution Delivery",
+];
+
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="sap-field">
-      <span>{label}</span>
-      <strong>{value}</strong>
+    <div className="profile-fields">
+      <div>
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
     </div>
   );
 }
 
 export default function Home() {
-  const [photoOk, setPhotoOk] = useState(true);
-
   return (
-    <div className="consulting-portfolio">
-      {/* SHELL BAR (hidden when printing) */}
-      <header className="sap-shell">
-        <div className="sap-shell-inner">
-          <div className="sap-shell-brand">
-            <span className="sap-shell-logo">NM</span>
-            Namad Mohammed
-          </div>
-          <nav>
-            <a href="#about">About</a>
-            <a href="#work">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
-          </nav>
+    <div className="portfolio-page">
+      <header className="portfolio-nav screen-only">
+        <div className="nav-brand">
+          <strong>NM</strong>
+          <span>Namad Mohammed</span>
         </div>
+
+        <nav aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#work">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button
+          className="nav-print-button"
+          type="button"
+          onClick={() => window.print()}
+        >
+          <Printer size={14} />
+          Print / Save PDF
+        </button>
       </header>
 
-      {/*
-        Section order matters for the 3-page A4 print:
-          Page 1: home, about, metrics, business-analysis
-          Page 2: work
-          Page 3: skills, experience, education, contact
-      */}
-      <main id="top" className="sap-document-stack">
-        {/* HERO */}
-        <section id="home" className="sap-hero-window">
-          <div className="sap-hero-layout">
-            <div className="sap-hero-copy">
-              <div className="sap-form-caption">
-                AVAILABLE · ERP INTEGRATION & BUSINESS ANALYSIS
-              </div>
+      <main>
+        <section className="portfolio-hero">
+          <div className="hero-content">
+            <div className="hero-copy">
+              <span className="hero-status">
+                AVAILABLE · ERP INTEGRATION &amp; BUSINESS ANALYSIS
+              </span>
 
               <h1>
                 ERP Integration
@@ -186,403 +189,316 @@ export default function Home() {
                 <em>&amp; Business Analysis.</em>
               </h1>
 
-              <p>
+              <p className="hero-description">
                 Connecting business requirements, ERP systems, APIs, data, and
                 automation to build practical solutions that reduce manual work
                 and improve business processes.
               </p>
 
-              <div className="sap-inline-meta">
+              <div className="hero-meta">
                 <span>
                   <MapPin size={14} />
                   Trivandrum, Kerala
                 </span>
 
-                <span>
+                <a href="mailto:namadmohammed0@gmail.com">
                   <Mail size={14} />
                   namadmohammed0@gmail.com
-                </span>
+                </a>
               </div>
 
-              <div className="sap-data-strip">
-                <span>AVAILABLE</span>
-                <span>ERP · INTEGRATION · BUSINESS ANALYSIS</span>
-                <span>API · SQL · AUTOMATION</span>
-              </div>
-
-              <div className="sap-action-row">
-                <a className="sap-primary-button" href="#work">
+              <div className="hero-actions">
+                <a className="button button-primary" href="#work">
                   View Projects
                   <ArrowUpRight size={14} />
                 </a>
 
                 <a
-                  className="sap-secondary-button"
+                  className="button button-secondary"
                   href="mailto:namadmohammed0@gmail.com"
                 >
                   Contact Me
                   <Mail size={14} />
                 </a>
-
-                <button
-                  type="button"
-                  className="sap-secondary-button"
-                  onClick={() => window.print()}
-                >
-                  Print / Save PDF
-                  <Printer size={14} />
-                </button>
               </div>
             </div>
 
-            <div className="sap-hero-badge">
-              <div className="sap-badge-ring">
-                {photoOk ? (
-                  <img
-                    className="sap-photo"
-                    src={PHOTO_SRC}
-                    alt="Namad Mohammed"
-                    onError={() => setPhotoOk(false)}
-                  />
-                ) : (
-                  <span>NM</span>
-                )}
+            <div className="hero-profile">
+              <div className="profile-photo-frame">
+                <img
+                  src="/Portfolio2/profile.jpg"
+                  alt="Namad Mohammed"
+                  className="profile-photo"
+                />
               </div>
 
-              <small>
-                ERP / INTEGRATION
-                <br />
-                BUSINESS ANALYSIS
-              </small>
+              <div className="hero-profile-name">
+                <strong>Namad Mohammed</strong>
+                <span>ERP Integration &amp; Business Analyst</span>
+              </div>
             </div>
           </div>
 
-          <div className="sap-form-footer">
-            <span>CORE WORKSTREAM</span>
-
-            <strong>
-              Business need <em>→</em> system solution
-            </strong>
-
-            <small>Requirements · Mapping · Integration · Delivery</small>
+          <div className="hero-strip">
+            <span>AVAILABLE</span>
+            <span>ERP · INTEGRATION</span>
+            <span>BUSINESS ANALYSIS</span>
+            <span>API · SQL</span>
+            <span>DATA · AUTOMATION</span>
           </div>
         </section>
 
-        {/* ABOUT */}
-        <section id="about" className="sap-about-window">
-          <div className="sap-section-intro">
-            <div>
-              <span className="sap-form-caption">Professional profile</span>
-
-              <h2>
-                Connecting business
-                <br />
-                <em>needs with systems.</em>
-              </h2>
-            </div>
-
-            <div className="sap-identity-mark">
-              <strong>NM</strong>
-              <span>PROFILE / 001</span>
-            </div>
+        <section id="about" className="portfolio-section about-section">
+          <div className="portfolio-section-heading">
+            <span>Professional profile</span>
+            <h2>
+              Connecting business
+              <br />
+              <em>needs with systems.</em>
+            </h2>
           </div>
 
-          <p className="sap-window-copy">
-            Business Analyst with experience across ERP integration, business
-            process improvement, automation, reporting, SQL/HANA, APIs, and
-            third-party system integration. I work between business
-            requirements and technical delivery, translating operational needs
-            into practical systems and integration solutions.
-          </p>
+          <div className="about-grid">
+            <div className="about-copy">
+              <p>
+                Business Analyst with experience across ERP integration, business
+                process improvement, automation, reporting, SQL/HANA, APIs, and
+                third-party system integration. I work between business
+                requirements and technical delivery, translating operational needs
+                into practical systems and integration solutions.
+              </p>
+            </div>
 
-          <div className="sap-field-grid">
-            <Field label="NAME" value="Namad Mohammed" />
-            <Field label="POSITION" value="ERP Integration & Business Analyst" />
-            <Field label="LOCATION" value="Trivandrum, Kerala / Remote" />
-            <Field
-              label="EXPERTISE"
-              value="ERP · APIs · SQL/HANA · Automation"
-            />
-            <Field
-              label="EXPERIENCE"
-              value="10+ years across finance, ERP, and delivery"
-            />
+            <div className="profile-fields">
+              <div>
+                <span>Name</span>
+                <strong>Namad Mohammed</strong>
+              </div>
+
+              <div>
+                <span>Position</span>
+                <strong>ERP Integration &amp; Business Analyst</strong>
+              </div>
+
+              <div>
+                <span>Location</span>
+                <strong>Trivandrum, Kerala / Remote</strong>
+              </div>
+
+              <div>
+                <span>Expertise</span>
+                <strong>ERP · APIs · SQL/HANA · Automation</strong>
+              </div>
+
+              <div>
+                <span>Experience</span>
+                <strong>10+ years across finance, ERP, and delivery</strong>
+              </div>
+
+              <div>
+                <span>Languages</span>
+                <strong>English · Hindi · Malayalam</strong>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* KPI */}
-        <section id="metrics" className="sap-stats-window">
-          <div className="sap-kpi-grid">
+        <section className="stats-section">
+          <div className="stats-grid">
             {stats.map((stat) => (
-              <div className="sap-kpi" key={stat.code}>
-                <span>{stat.code}</span>
+              <div className="stat-card" key={stat.code}>
                 <strong>{stat.value}</strong>
-                <small>{stat.label}</small>
+                <span>{stat.label}</span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* BUSINESS ANALYSIS */}
-        <section id="business-analysis" className="sap-analysis-window">
-          <div className="sap-window-heading">
-            <div>
-              <span className="sap-form-caption">Business analysis</span>
-
-              <h2>
-                From questions
-                <br />
-                <em>to action.</em>
-              </h2>
-            </div>
+        <section id="work" className="portfolio-section">
+          <div className="portfolio-section-heading">
+            <span>Selected projects</span>
+            <h2>
+              Relevant work,
+              <br />
+              <em>clearly presented.</em>
+            </h2>
           </div>
 
-          <div className="sap-table-wrap">
-            <table className="sap-table">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Process / Method</th>
-                  <th>Delivery Area</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {businessAnalysis.map((item, index) => (
-                  <tr key={item}>
-                    <td>{String(index + 1).padStart(2, "0")}</td>
-                    <td>{item}</td>
-                    <td>Business Analysis</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* PROJECTS */}
-        <section id="work" className="sap-projects-window">
-          <div className="sap-window-heading">
-            <div>
-              <span className="sap-form-caption">Selected projects</span>
-
-              <h2>
-                Relevant work,
-                <br />
-                <em>clearly presented.</em>
-              </h2>
-            </div>
-
-            <p>
-              Selected experience across ERP, manufacturing, portals,
-              reporting, integration, automation, and workflow delivery.
-            </p>
-          </div>
-
-          <div className="sap-sales-orders">
+          <div className="projects-grid">
             {projects.map((project) => (
-              <article className="sap-sales-order" key={project.no}>
-                <div className="sap-order-top">
-                  <strong>PROJECT {project.no}</strong>
+              <article className="project-card" key={project.no}>
+                <div className="project-number">{project.no}</div>
 
-                  <span>
-                    {project.no === "07"
-                      ? "PERSONAL PROJECT"
-                      : "SELECTED EXPERIENCE"}
-                  </span>
+                <div className="project-content">
+                  <div className="project-label">selected experience</div>
+                  <h3>{project.title}</h3>
+                  <p>{project.text}</p>
+
+                  <div className="project-tags">
+                    {project.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
                 </div>
-
-                <div className="sap-field-grid sap-order-fields">
-                  <Field label="PROJECT" value={project.title} />
-                  <Field
-                    label="CAPABILITIES"
-                    value={project.tags.join(" · ")}
-                  />
-                  <Field label="ROLE" value="Business Analysis / Integration" />
-                  <Field
-                    label="AREA"
-                    value={
-                      project.no === "07"
-                        ? "Personal project"
-                        : "ERP / Business Systems"
-                    }
-                  />
-                  <Field label="STATUS" value="Selected experience" />
-                  <Field label="OUTCOME" value={project.text} />
-                </div>
-
-                <a className="sap-row-link" href="#contact">
-                  Discuss this capability
-                  <ArrowUpRight size={13} />
-                </a>
               </article>
             ))}
           </div>
         </section>
 
-        {/* SKILLS */}
-        <section id="skills" className="sap-skills-window">
-          <div className="sap-window-heading">
+        <section className="portfolio-section">
+          <div className="two-column-section">
             <div>
-              <span className="sap-form-caption">Skills matrix</span>
+              <div className="portfolio-section-heading">
+                <span>Business analysis</span>
+                <h2>
+                  From questions
+                  <br />
+                  <em>to action.</em>
+                </h2>
+              </div>
 
-              <h2>
-                Working toolkit,
-                <br />
-                <em>mapped.</em>
-              </h2>
-            </div>
-
-            <p>
-              ERP, integration, data, automation, and business analysis
-              capabilities used across delivery.
-            </p>
-          </div>
-
-          <div className="sap-table-wrap">
-            <table className="sap-table sap-skills-table">
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Capability / Tool</th>
-                  <th>Area</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {technical.map((item, index) => (
-                  <tr key={item}>
-                    <td>
-                      {index < 2
-                        ? "ERP"
-                        : index < 5
-                        ? "Data & Integration"
-                        : "Automation"}
-                    </td>
-                    <td>{item}</td>
-                    <td>{whatIDo[index % whatIDo.length]}</td>
-                  </tr>
+              <div className="capability-list">
+                {businessAnalysis.map((item, index) => (
+                  <div key={item}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{item}</strong>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* EXPERIENCE */}
-        <section id="experience" className="sap-experience-window">
-          <div className="sap-window-heading">
-            <div>
-              <span className="sap-form-caption">Professional journey</span>
-
-              <h2>
-                Experience
-                <br />
-                <em>trace.</em>
-              </h2>
+              </div>
             </div>
 
-            <p>
-              Experience across business analysis, finance, ERP, integration,
-              automation, and technical delivery.
-            </p>
-          </div>
+            <div>
+              <div className="portfolio-section-heading">
+                <span>Skills matrix</span>
+                <h2>
+                  Working toolkit,
+                  <br />
+                  <em>mapped.</em>
+                </h2>
+              </div>
 
-          <div className="sap-table-wrap">
-            <table className="sap-table sap-journal-table">
-              <thead>
-                <tr>
-                  <th>Period</th>
-                  <th>Role</th>
-                  <th>Company</th>
-                  <th>Description</th>
-                  <th>Skills</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {experience.map((item, index) => (
-                  <tr key={item.title}>
-                    <td>{item.year}</td>
-
-                    <td>
-                      <strong>
-                        {String(index + 1).padStart(2, "0")}
-                        {" · "}
-                        {item.title}
-                      </strong>
-                    </td>
-
-                    <td>{item.company}</td>
-                    <td>{item.detail}</td>
-                    <td>{item.skills.slice(0, 3).join(" · ")}</td>
-                  </tr>
+              <div className="skill-list">
+                {technical.map((item) => (
+                  <span key={item}>{item}</span>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* EDUCATION */}
-        <section id="education" className="sap-education-window">
-          <div className="sap-window-heading">
-            <div>
-              <span className="sap-form-caption">Education</span>
+        <section id="experience" className="portfolio-section">
+          <div className="portfolio-section-heading">
+            <span>Professional journey</span>
+            <h2>
+              Experience
+              <br />
+              <em>trace.</em>
+            </h2>
+          </div>
 
-              <h2>
-                Academic
-                <br />
-                <em>foundation.</em>
-              </h2>
+          <div className="experience-list">
+            {experience.map((item) => (
+              <div className="experience-item" key={item.title}>
+                <div className="experience-period">{item.year}</div>
+
+                <div className="experience-main">
+                  <h3>{item.title}</h3>
+                  <strong>{item.company}</strong>
+                  <p>{item.detail}</p>
+
+                  <div className="experience-skills">
+                    {item.skills.map((skill) => (
+                      <span key={skill}>{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="skills" className="portfolio-section">
+          <div className="portfolio-section-heading">
+            <span>Capabilities</span>
+            <h2>
+              Business and
+              <br />
+              <em>technical strengths.</em>
+            </h2>
+          </div>
+
+          <div className="education-grid">
+            <div className="education-card">
+              <span>Business analysis</span>
+              <h3>Operational insight</h3>
+              <p>
+                Requirements capture, process mapping, workflow analysis, UAT,
+                functional documentation, and defect triage for ERP and business
+                systems.
+              </p>
+            </div>
+
+            <div className="education-card">
+              <span>Technical delivery</span>
+              <h3>System and data solutions</h3>
+              <p>
+                SAP ERP, SAP B1, API coordination, SQL/HANA reporting, BEAS
+                processes, and automation solutions that connect people with the
+                right data.
+              </p>
             </div>
           </div>
 
-          <div className="sap-field-grid">
-            <Field
-              label="MASTER'S IN BUSINESS MANAGEMENT"
-              value="University of Siena, Italy · 2016–2019"
-            />
-            <Field
-              label="DETAILS"
-              value="International management, corporate valuation, business law, strategic management, and financial accounting."
-            />
-            <Field
-              label="BACHELOR OF COMMERCE (B.COM)"
-              value="Mahatma Gandhi College, Kerala University · 2012–2015"
-            />
-            <Field
-              label="DETAILS"
-              value="Auditing, management accounting, costing, economics, and business law."
-            />
-            <Field
-              label="LANGUAGES"
-              value="English · Italian · Hindi · Malayalam"
-            />
-            <Field
-              label="PROFILE"
-              value="Professional working communication across multicultural business and technology teams."
-            />
+          <div className="languages">
+            <span>Core capabilities</span>
+            <strong>{capabilities.join(" · ")}</strong>
           </div>
         </section>
 
-        {/* CONTACT */}
-        <section id="contact" className="sap-contact-window">
-          <div className="sap-contact-grid">
+        <section className="portfolio-section">
+          <div className="portfolio-section-heading">
+            <span>Education</span>
+            <h2>
+              Academic
+              <br />
+              <em>foundation.</em>
+            </h2>
+          </div>
+
+          <div className="education-grid">
+            <div className="education-card">
+              <span>2016 — 2019</span>
+              <h3>Master&apos;s in Business Management</h3>
+              <p>University of Siena, Italy</p>
+            </div>
+
+            <div className="education-card">
+              <span>2012 — 2015</span>
+              <h3>Bachelor of Commerce</h3>
+              <p>Mahatma Gandhi College, Kerala University</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="portfolio-section contact-section">
+          <div className="portfolio-section-heading">
+            <span>Contact</span>
+            <h2>
+              Let&apos;s build
+              <br />
+              <em>better workflows.</em>
+            </h2>
+          </div>
+
+          <div className="contact-layout">
             <div>
-              <span className="sap-form-caption">Contact</span>
-
-              <h2>
-                Let&apos;s build
-                <br />
-                <em>better workflows.</em>
-              </h2>
-
-              <p className="sap-window-copy">
-                For opportunities involving business analysis, ERP
-                integration, APIs, automation, SQL, or business systems
-                delivery, contact me directly.
+              <p className="contact-description">
+                For opportunities involving business analysis, ERP integration,
+                APIs, automation, SQL, or business systems delivery, contact me
+                directly.
               </p>
 
-              <div className="sap-contact-list">
+              <div className="contact-links">
                 <a href="mailto:namadmohammed0@gmail.com">
                   <Mail size={15} />
                   namadmohammed0@gmail.com
@@ -595,11 +511,17 @@ export default function Home() {
                   <ArrowUpRight size={13} />
                 </a>
 
-                <span>
+                <a href="https://goo.gl/maps" target="_blank" rel="noreferrer">
                   <MapPin size={15} />
                   Trivandrum, Kerala
-                </span>
+                  <ArrowUpRight size={13} />
+                </a>
               </div>
+            </div>
+
+            <div className="contact-qr">
+              <QRCodeSVG value={CONTACT_VCARD} size={150} level="M" includeMargin />
+              <span>SCAN TO SAVE CONTACT</span>
             </div>
           </div>
         </section>
