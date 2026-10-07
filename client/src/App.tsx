@@ -9,14 +9,11 @@ import Home from "./pages/Home";
 function Router() {
   return (
     <Switch>
-      {/* GitHub Pages project URL */}
       <Route path="/Portfolio2/" component={Home} />
       <Route path="/Portfolio2" component={Home} />
 
-      {/* Local development */}
       <Route path="/" component={Home} />
 
-      {/* Legacy URL support */}
       <Route
         path="/Namad-Mohammed-BA-Portfolio/"
         component={Home}
@@ -27,7 +24,6 @@ function Router() {
         component={Home}
       />
 
-      {/* Always show portfolio instead of a 404 */}
       <Route component={Home} />
     </Switch>
   );
