@@ -9,8 +9,8 @@
 
 :root {
   --shell-top: #2f4c69;
-  --shell-mid: #55748f;
-  --shell-bottom: #7b98b2;
+  --shell-mid: #46657f;
+  --shell-bottom: #5a7b98;
   --accent: #0a6ed1;        /* Fiori blue */
   --accent-light: #1aa7e8;  /* the "+" blue in the launchpad */
   --accent-dark: #085caf;
@@ -20,7 +20,7 @@
   --surface: #ffffff;
   --surface-alt: #f5f6f7;
   --on-shell: #ffffff;
-  --on-shell-soft: rgba(255, 255, 255, 0.82);
+  --on-shell-soft: rgba(255, 255, 255, 0.94);
   --radius: 8px;
   --shadow: 0 2px 8px rgba(18, 38, 58, 0.18);
   --font: "72", "72full", Arial, Helvetica, sans-serif;
@@ -327,4 +327,102 @@ h1, h2, h3, p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
+}
+
+/* ---------- Hero text: force light colours on the dark gradient ---------- */
+.consulting-portfolio .sap-hero-window,
+.consulting-portfolio .sap-hero-window h1,
+.consulting-portfolio .sap-hero-window .sap-form-footer strong,
+.consulting-portfolio .sap-hero-window .sap-badge-ring span { color: #ffffff; }
+.consulting-portfolio .sap-hero-window h1 em { color: #cfeaff; }
+.consulting-portfolio .sap-hero-window p,
+.consulting-portfolio .sap-hero-window .sap-inline-meta,
+.consulting-portfolio .sap-hero-window .sap-inline-meta span,
+.consulting-portfolio .sap-hero-window .sap-data-strip span,
+.consulting-portfolio .sap-hero-window .sap-hero-badge small,
+.consulting-portfolio .sap-hero-window .sap-form-footer span,
+.consulting-portfolio .sap-hero-window .sap-form-footer small { color: rgba(255, 255, 255, 0.94); }
+.consulting-portfolio .sap-hero-window .sap-form-caption,
+.consulting-portfolio .sap-hero-window .sap-form-footer em { color: #cfeaff; }
+button.sap-secondary-button { font-family: inherit; cursor: pointer; }
+
+/* ==========================================================
+   PRINT: A4 portrait, exactly 3 pages
+   Page 1: profile, KPIs, business analysis
+   Page 2: projects
+   Page 3: skills, experience, education, contact
+   (Best in Chrome / Edge: "Save as PDF", Margins: Default, Background graphics: on)
+   ========================================================== */
+@page { size: A4 portrait; margin: 10mm; }
+@media print {
+  html, body { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 9pt; }
+  .consulting-portfolio { background: #fff !important; min-height: 0; overflow: visible; }
+  .consulting-portfolio::before, .consulting-portfolio::after { display: none; }
+  .sap-shell, .sap-action-row, .sap-row-link, .sap-identity-mark,
+  .sap-window-heading > p, #contact .sap-window-copy { display: none !important; }
+
+  .sap-document-stack { display: flex; flex-direction: column; gap: 4mm; max-width: none; padding: 0; }
+  #home { order: 1; } #about { order: 2; } #metrics { order: 3; } #business-analysis { order: 4; }
+  #work { order: 5; break-before: page; }
+  #skills { order: 6; break-before: page; }
+  #experience { order: 7; } #education { order: 8; } #contact { order: 9; }
+
+  .sap-about-window, .sap-projects-window, .sap-analysis-window, .sap-skills-window, .sap-stats-window,
+  .sap-experience-window, .sap-education-window, .sap-contact-window {
+    padding: 3.5mm 5mm; box-shadow: none; border: 0.3mm solid #d9d9d9; border-radius: 2mm;
+  }
+  .sap-section-intro, .sap-window-heading { padding-bottom: 2mm; margin-bottom: 2.5mm; }
+  .sap-about-window h2, .sap-projects-window h2, .sap-analysis-window h2, .sap-skills-window h2,
+  .sap-experience-window h2, .sap-education-window h2, .sap-contact-window h2 { font-size: 15pt; margin-top: 1mm; }
+  .sap-form-caption { font-size: 8pt; }
+
+  /* Hero becomes a dark-on-white header */
+  .consulting-portfolio .sap-hero-window { padding: 0 0 3mm; color: #1d2d3e; border-bottom: 0.5mm solid #0a6ed1; }
+  .consulting-portfolio .sap-hero-window h1 { color: #1d2d3e; font-size: 25pt; margin: 1mm 0 2mm; }
+  .consulting-portfolio .sap-hero-window h1 em { color: #0a6ed1; }
+  .consulting-portfolio .sap-hero-window p, .consulting-portfolio .sap-hero-window .sap-inline-meta,
+  .consulting-portfolio .sap-hero-window .sap-inline-meta span { color: #3b4249; font-size: 9pt; line-height: 1.45; }
+  .consulting-portfolio .sap-hero-window .sap-form-caption { color: #0a6ed1; }
+  .sap-hero-layout { grid-template-columns: 1fr 34mm; gap: 8mm; }
+  .sap-inline-meta { margin-top: 2mm; }
+  .sap-data-strip { margin-top: 2mm; }
+  .consulting-portfolio .sap-hero-window .sap-data-strip span { color: #3b4249; border-color: #aab4be; font-size: 7.5pt; padding: 0.8mm 2.5mm; }
+  .sap-badge-ring { width: 26mm; height: 26mm; background: none; border: 0.5mm solid #0a6ed1; box-shadow: none; }
+  .consulting-portfolio .sap-hero-window .sap-badge-ring span { color: #0a6ed1; font-size: 20pt; }
+  .consulting-portfolio .sap-hero-window .sap-hero-badge small { color: #3b4249; font-size: 7pt; }
+  .sap-form-footer { margin-top: 3mm; padding: 2mm 3mm; background: #f5f6f7; border: 0.3mm solid #d9d9d9; }
+  .consulting-portfolio .sap-hero-window .sap-form-footer strong { color: #1d2d3e; font-size: 10pt; }
+  .consulting-portfolio .sap-hero-window .sap-form-footer span, .consulting-portfolio .sap-hero-window .sap-form-footer small { color: #3b4249; font-size: 7.5pt; }
+  .consulting-portfolio .sap-hero-window .sap-form-footer em { color: #0a6ed1; }
+
+  /* Fields, tables, KPIs */
+  .sap-window-copy { font-size: 9pt; line-height: 1.5; margin-bottom: 2mm; color: #3b4249; }
+  .sap-field-grid { gap: 0 8mm; }
+  .sap-field { padding: 1.4mm 0; gap: 0.5mm; }
+  .sap-field span { font-size: 7pt; } .sap-field strong { font-size: 8.5pt; line-height: 1.35; }
+  .sap-kpi-grid { gap: 3mm; }
+  .sap-stats-window { padding: 2.5mm 5mm; }
+  .sap-kpi { padding: 2mm 3mm; } .sap-kpi strong { font-size: 20pt; } .sap-kpi small { font-size: 7.5pt; }
+  .sap-table-wrap { overflow: visible; }
+  .sap-table { min-width: 0; font-size: 8pt; }
+  .sap-table th { padding: 1.3mm 2.5mm; font-size: 7pt; }
+  .sap-table td { padding: 1.3mm 2.5mm; line-height: 1.35; }
+  .sap-table tr { break-inside: avoid; }
+  .sap-journal-table { font-size: 7.5pt; }
+
+  /* Projects: compact 2-column cards */
+  .sap-sales-orders { grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .sap-sales-order { padding: 1.5mm 3.5mm 3mm; break-inside: avoid; }
+  .sap-order-top { padding: 2mm 0; }
+  .sap-order-top strong { font-size: 8.5pt; } .sap-order-top span { font-size: 6.5pt; padding: 0.4mm 2mm; }
+  .sap-order-fields { grid-template-columns: 1fr; }
+  .sap-order-fields .sap-field:nth-child(3), .sap-order-fields .sap-field:nth-child(4),
+  .sap-order-fields .sap-field:nth-child(5) { display: none; }
+  .sap-order-fields .sap-field:last-child { border-bottom: 0; }
+
+  /* Contact on one line */
+  .sap-contact-list { max-width: none; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; border-top: 0; margin-top: 0; }
+  .sap-contact-list a, .sap-contact-list span { font-size: 8pt; padding: 1.5mm 0; }
+  .sap-contact-list a svg:last-child { display: none; }
 }
